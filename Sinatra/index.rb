@@ -3,5 +3,5 @@ require 'bundler/setup'
 require 'sinatra'
 
 get '/' do
-  "Hello World!"
+  send_file File.expand_path('index.htm', settings.public_folder)
 end
