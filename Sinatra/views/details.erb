@@ -1,0 +1,51 @@
+<% content_for :content do %>
+
+
+<% end %>
+<% content_for :script do %>
+				
+				<script type="text/javascript">
+            $(function() {
+
+                Helpers.withPrismic(function(ctx) {
+
+                    // Retrieve the document
+                    var id = Helpers.queryString['id'],
+                        slug = Helpers.queryString['slug'];
+
+                    ctx.api.form("everything").ref(ctx.ref).query('[[:d = at(document.id, "' + id + '")]]').submit(function(err, docs) {
+
+                        if (err) { Configuration.onPrismicError(err); return; }
+												theCtx = ctx;
+												theDocs = docs;
+                        var doc = docs.results[0];
+
+                        // If there is no documents for this id
+                        if(!doc) {
+                            document.location = 'notfound.html';
+                        }
+
+                        // If the slug doesn't match
+                        if(doc.slug != slug) {
+                            // If this is an old valid slug, redirect
+                            if(doc.slugs.indexOf(slug) > -1) {
+                                document.location = 'detail.html?id=' + doc.id + '&slug=' + doc.slug + '&ref=' + ref;
+                            } else {
+                                document.location = 'notfound.html';
+                            }
+                        }
+
+                        // Feed the templates
+                        $('header, article, aside, footer').render({
+                            doc: doc,
+                            ctx: ctx
+                        });
+
+                    });
+
+                });
+
+            });
+        </script>
+				
+<% end %>
