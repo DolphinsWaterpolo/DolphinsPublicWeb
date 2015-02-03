@@ -12,6 +12,10 @@ get '/committee' do
 	erb :committee
 end
 
+get '/sponsors' do
+	erb :sponsors
+end
+
 get '/details' do
 	erb :details
 end
