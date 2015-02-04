@@ -7342,6 +7342,9 @@ ul.list-border-spacer li:hover {
   .header .navbar-collapse {
     float: right;
   }
+	#content {
+		padding: 90px 0;
+	}
 }
 #highlighted {
   background-image: -webkit-linear-gradient(top, #ffffff 0%, #e6e6e6 100%);
