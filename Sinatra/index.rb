@@ -16,6 +16,10 @@ get '/sponsors' do
 	erb :sponsors
 end
 
+get '/search' do
+	erb :search
+end
+
 get '/details' do
 	erb :details
 end
