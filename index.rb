@@ -14,6 +14,10 @@ get '/about' do
 	erb :about
 end
 
+get '/flippaball' do
+	erb :flippaball
+end
+
 get '/committee' do
 	erb :committee
 end
