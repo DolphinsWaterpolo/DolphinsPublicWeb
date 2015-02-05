@@ -5,20 +5,6 @@
 </div>
 <% end %>
 <% content_for :script do %>
-<script type="text/template" id="template">
-	  <!--Team Member test-->
-		<div class="col-xs-6 col-sm-4 col-md-3 grid-item">
-			<div class="team-member">
-				<a data-href="link" data-title="title">
-					<img data-src="image" class="img-thumbnail" data-alt="title" />
-				</a>
-				<h5 class="name">
-					<a data-href="link" data-title="title" data-content="name"></a>
-				</h5>
-				<p data-content="position" class="role">Member</p>
-			</div>
-		</div>	
-</script>
 <script>
 	$(function() {
 		var q = Helpers.queryString['q'];
