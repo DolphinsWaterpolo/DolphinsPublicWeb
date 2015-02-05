@@ -9,7 +9,7 @@ var Configuration = {
 
   // -- Links resolution rules
   linkResolver: function(ctx, doc) {
-    return 'details/?id=' + doc.id + '&slug=' + doc.slug + ctx.maybeRefParam;
+    return 'details?id=' + doc.id + '&slug=' + doc.slug + ctx.maybeRefParam;
   },
 
   // -- To customize: what to do when an error happens on the prismic.io side
