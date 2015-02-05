@@ -1,6 +1,7 @@
 <% content_for :content do %>
 <div class="container">
-    
+    <div id="template_container">
+    </div>
 </div>
 <% end %>
 <% content_for :script do %>
@@ -20,34 +21,8 @@
 </script>
 <script>
 	$(function() {
-		Helpers.withPrismic(function(ctx) {
-			var q = Helpers.queryString['q'];
-			ctx.api
-					.form("everything")
-					.set('page', parseInt(window.location.hash.substring(1)) || 1 )
-					.ref(ctx.ref)
-					.query('[[:d = fulltext(document, "' + q + '")]]')
-					.submit(function(err, docs) {
-
-						if (err) { 
-							Configuration.onPrismicError(err); 
-							return;
-						}
-						theDocs = docs;
-						// Feed the templates
-						$('header, #title, #results, #pagination, footer').render({
-								docs: docs,
-								ctx: ctx
-						},
-						// Useful for pagination: refresh on some links even when only anchor changed
-						function() {
-								$('[data-forcereload=true]').click(function(e){
-										window.location = $(this).attr('href');
-										window.location.reload();
-								});
-						});
-					});
-		});
+		var q = Helpers.queryString['q'];
+		getResources('[[:d = fulltext(document, "' + q + '")]]');
 	});
 </script>
 <% end %>

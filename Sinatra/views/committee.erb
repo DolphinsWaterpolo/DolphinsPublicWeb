@@ -7,7 +7,7 @@
           <small>Our team of stars!</small>
         </h2>
         <div class="team team-grid margin-top-large">
-          <div id="team_holder"   class="row" data-toggle="isotope-grid" data-isotope-options='{"layoutMode": "fitRows", "itemSelector": ".grid-item"}'>
+          <div id="template_container" class="row" data-toggle="isotope-grid" data-isotope-options='{"layoutMode": "fitRows", "itemSelector": ".grid-item"}'>
              
 					</div>
 				</div>
@@ -16,46 +16,9 @@
 </div>
 <% end %>
 <% content_for :script do %>
-<script type="text/template" id="template">
-	  <!--Team Member test-->
-		<div class="col-xs-6 col-sm-4 col-md-3 grid-item">
-			<div class="team-member">
-				<a data-href="link" data-title="title">
-					<img data-src="image" class="img-thumbnail" data-alt="title" />
-				</a>
-				<h5 class="name">
-					<a data-href="link" data-title="title" data-content="name"></a>
-				</h5>
-				<p data-content="position" class="role">Member</p>
-			</div>
-		</div>	
-</script>
 <script>
 	$(function() {
-		Helpers.withPrismic(function(ctx) {
-			ctx.api.form('everything')
-        .ref(ctx.api.master())
-        .query(Prismic.Predicates.at("document.type", "person"))
-				.submit(function (err, response) {
-            if (err) {
-                console.log(err);
-                done();
-            }
-						var people = [];
-						response.results.forEach(function(item){
-							people.push({
-								name : item.getText("person.first_name") + " " + item.getText("person.surname"),
-								title : item.getText("person.title"),
-								organisation : item.getText("person.organisation"),
-								position : item.getText("person.position"),
-								description : item.getText("person.description"),
-								image : item.getImage("person.image").views.icon.url,
-								link : ctx.linkResolver(ctx, item)
-							});			
-						});
-						$("#team_holder").loadTemplate($("#template"),people);
-        });
-		});
+		getResources(Prismic.Predicates.at("document.type", "person"));
 	});
 </script>
 <% end %>
