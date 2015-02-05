@@ -1,53 +1,14 @@
 <% content_for :content do %>
 <div class="container">
-    
+    <div id="template_container">
+    </div>
 </div>
 <% end %>
 <% content_for :script do %>
-<script type="text/template" id="template">
-	  <!--Team Member test-->
-		<div class="col-xs-6 col-sm-4 col-md-3 grid-item">
-			<div class="team-member">
-				<a data-href="link" data-title="title">
-					<img data-src="image" class="img-thumbnail" data-alt="title" />
-				</a>
-				<h5 class="name">
-					<a data-href="link" data-title="title" data-content="name"></a>
-				</h5>
-				<p data-content="position" class="role">Member</p>
-			</div>
-		</div>	
-</script>
 <script>
 	$(function() {
-		Helpers.withPrismic(function(ctx) {
-			var q = Helpers.queryString['q'];
-			ctx.api
-					.form("everything")
-					.set('page', parseInt(window.location.hash.substring(1)) || 1 )
-					.ref(ctx.ref)
-					.query('[[:d = fulltext(document, "' + q + '")]]')
-					.submit(function(err, docs) {
-
-						if (err) { 
-							Configuration.onPrismicError(err); 
-							return;
-						}
-						theDocs = docs;
-						// Feed the templates
-						$('header, #title, #results, #pagination, footer').render({
-								docs: docs,
-								ctx: ctx
-						},
-						// Useful for pagination: refresh on some links even when only anchor changed
-						function() {
-								$('[data-forcereload=true]').click(function(e){
-										window.location = $(this).attr('href');
-										window.location.reload();
-								});
-						});
-					});
-		});
+		var q = Helpers.queryString['q'];
+		getResources('[[:d = fulltext(document, "' + q + '")]]');
 	});
 </script>
 <% end %>

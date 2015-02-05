@@ -8,55 +8,14 @@
         </h2>
       </div>
   </div>
-	<div id="sponsor_holder">
+	<div id="template_container">
 	</div>
 </div>
 <% end %>
 <% content_for :script do %>
-<script type="text/template" id="template">
-		<div class="team-member">
-			<div class="row">
-				<div class="col-sm-2">
-					<a data-href="link" data-title="displayName">
-						<img data-src="image" class="img-thumbnail" data-alt="displayName" />
-					</a>
-				</div>
-				<div class="col-sm-10">
-					<h4 class="name">
-						<a data-href="link" data-title="displayName" data-content="displayName"></a>
-					</h4>
-					<p data-content="about"></p>
-				</div>
-			</div>
-		</div>	
-</script>
 <script>
-	$(function() {
-		Helpers.withPrismic(function(ctx) {
-			ctx.api.form('everything')
-        .ref(ctx.api.master())
-        .query(
-					Prismic.Predicates.at("document.type", "organisation"),
-					Prismic.Predicates.any("document.tags", ["Sponsor"])
-					)
-				.submit(function (err, response) {
-            if (err) {
-                console.log(err);
-                done();
-            }
-										
-						sponsors = [];
-						response.results.forEach(function(item){
-							sponsors.push({
-								displayName : item.getText("organisation.displayName"),
-								about : item.getText("organisation.about"),
-								image : item.getImage("organisation.illustration").views.icon.url,
-								link : item.getLink("organisation.website").value.url
-							});							
-						});
-						$("#sponsor_holder").loadTemplate($("#template"),sponsors);
-        });
-		});
+$(function() {
+		getResources(Prismic.Predicates.at("document.type", "organisation"), Prismic.Predicates.any("document.tags", ["Sponsor"]));
 	});
 </script>
 <% end %>
